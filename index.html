@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="ru" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOCUS FLOW — Персональный планировщик задач, времени и продуктивности</title>
+    <meta name="description" content="FOCUS FLOW — высокопроизводительный планировщик задач, Pomodoro-таймер концентрации, интерактивный календарь и аналитика личной продуктивности." />
+    
+    <!-- OpenGraph / Social Share Cards -->
+    <meta property="og:title" content="FOCUS FLOW — Персональный планировщик задач и времени" />
+    <meta property="og:description" content="Организуйте день, управляйте задачами, держите фокус и отслеживайте прогресс с интерактивным приложением FOCUS FLOW." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Pure CSS Design System -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="bg-canvas text-main">
+    <div class="app-shell">
+      <!-- Desktop Sidebar Navigation -->
+      <aside class="sidebar" aria-label="Основная навигация">
+        <!-- Brand Header -->
+        <div class="flex items-center gap-3 px-6 h-16 border-b border-subtle">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-md">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-base tracking-tight text-main">FOCUS FLOW</h1>
+            <p class="text-[10px] text-muted uppercase tracking-wider font-semibold">Productivity</p>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 px-3 py-4 space-y-1">
+          <button class="nav-btn nav-btn-active" data-nav-target="dashboard" aria-current="page">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            <span>Обзор</span>
+          </button>
+
+          <button class="nav-btn" data-nav-target="tasks">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+            <span class="flex-1 text-left">Задачи</span>
+            <span id="tasks-count-badge" class="text-xs px-2 py-0.5 rounded-full bg-surface-elevated text-muted font-mono">0</span>
+          </button>
+
+          <button class="nav-btn" data-nav-target="timer">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Фокус-таймер</span>
+          </button>
+
+          <button class="nav-btn" data-nav-target="calendar">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Календарь</span>
+          </button>
+
+          <button class="nav-btn" data-nav-target="analytics">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+            <span>Аналитика</span>
+          </button>
+        </nav>
+
+        <!-- Sidebar Footer Action Links -->
+        <div class="p-3 border-t border-subtle space-y-1">
+          <button id="open-settings-btn" class="nav-btn" aria-label="Открыть настройки">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Настройки</span>
+          </button>
+
+          <button id="open-shortcuts-btn" class="nav-btn text-xs text-muted" aria-label="Горячие клавиши">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="flex-1 text-left">Горячие клавиши</span>
+            <kbd class="px-1.5 py-0.5 text-[10px] rounded bg-surface-elevated border border-subtle font-mono text-muted">?</kbd>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Container -->
+      <main class="main-content">
+        <!-- Top Sticky Header -->
+        <header class="top-bar">
+          <div class="flex items-center gap-3">
+            <div class="md:hidden w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <span id="dash-greeting" class="font-bold text-sm text-main">Добро пожаловать</span>
+              <span class="hidden sm:inline text-xs text-muted ml-2" id="dash-date">Сегодня</span>
+            </div>
+          </div>
+
+          <!-- Top Bar Right Actions -->
+          <div class="flex items-center gap-2">
+            <!-- Theme Toggle -->
+            <button id="theme-toggle-btn" class="p-2 rounded-lg text-muted hover:text-main hover:bg-surface-hover transition-colors" aria-label="Переключить тему">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </button>
+
+            <!-- Quick Add Task Button -->
+            <button id="global-add-task-btn" class="btn-primary" aria-label="Создать новую задачу">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+              </svg>
+              <span class="global-add-text">Новая задача</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- View Content Area -->
+        <div class="view-content-area">
+
+          <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+          <section id="view-dashboard" class="space-y-6" aria-labelledby="view-dashboard-title">
+            <h2 id="view-dashboard-title" class="sr-only">Обзор продуктивности</h2>
+
+            <!-- Metric Cards 4-column Strip -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <!-- Metric 1: Today Progress with Circular Ring -->
+              <div class="metric-card">
+                <div class="relative w-14 h-14 shrink-0 flex items-center justify-center">
+                  <svg class="w-14 h-14 -rotate-90" viewBox="0 0 88 88">
+                    <circle cx="44" cy="44" r="38" fill="none" stroke="var(--border-subtle)" stroke-width="6" />
+                    <circle id="dash-progress-ring-circle" cx="44" cy="44" r="38" fill="none" stroke="var(--accent-emerald)" stroke-width="6" stroke-linecap="round" stroke-dasharray="238.76" stroke-dashoffset="238.76" style="transition: stroke-dashoffset 0.5s ease;" />
+                  </svg>
+                  <span id="dash-today-pct" class="absolute text-xs font-bold font-mono text-main">0%</span>
+                </div>
+                <div>
+                  <p class="text-xs text-muted font-medium">Прогресс за день</p>
+                  <p class="text-xl font-bold font-mono text-main mt-0.5">
+                    <span id="dash-today-done">0</span> <span class="text-xs text-muted font-normal">из</span> <span id="dash-today-remain">0</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Metric 2: Productive Streak -->
+              <div class="metric-card">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-muted font-medium">Серия продуктивности</p>
+                  <p id="dash-streak-count" class="text-xl font-bold font-mono text-main mt-0.5">0 дней</p>
+                </div>
+              </div>
+
+              <!-- Metric 3: Focus Time -->
+              <div class="metric-card">
+                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-muted font-medium">Время концентрации</p>
+                  <p id="dash-focus-time" class="text-xl font-bold font-mono text-main mt-0.5">0ч 0м</p>
+                </div>
+              </div>
+
+              <!-- Metric 4: Quick Action Card -->
+              <div class="metric-card bg-indigo-600/10 border-indigo-500/20">
+                <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs text-indigo-400 font-semibold uppercase tracking-wider">Фокус сейчас</p>
+                  <button id="dash-start-timer-btn" class="mt-1 text-sm font-bold text-main hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                    <span>Запустить Pomodoro</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dashboard 2-column Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+              <!-- Left Column: Tasks Today (Span 2) -->
+              <div class="lg:col-span-2 space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-bold text-base text-main">План на сегодня</h3>
+                    <span class="text-xs text-muted">фокус дня</span>
+                  </div>
+                  <button id="dash-quick-add-btn" class="text-xs font-semibold text-indigo-500 hover:text-indigo-400 flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                    <span>Добавить</span>
+                  </button>
+                </div>
+
+                <div id="dash-today-tasks-list" class="space-y-2"></div>
+                <div id="dash-today-empty" class="p-8 text-center bg-surface border border-subtle rounded-xl hidden">
+                  <div class="w-10 h-10 mx-auto rounded-full bg-surface-elevated text-muted flex items-center justify-center mb-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  </div>
+                  <p class="text-sm font-medium text-main">На сегодня всё выполнено или задач нет!</p>
+                  <p class="text-xs text-muted mt-1">Отличный момент, чтобы запланировать новый важный шаг.</p>
+                </div>
+
+                <!-- Upcoming Queue -->
+                <div class="pt-4 border-t border-subtle">
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-sm text-main">Ближайшие задачи</h3>
+                    <button data-nav-target="tasks" class="text-xs text-muted hover:text-main">Все задачи →</button>
+                  </div>
+                  <div id="dash-upcoming-tasks-list" class="space-y-2"></div>
+                </div>
+              </div>
+
+              <!-- Right Column: Weekly Activity & Productivity Insights -->
+              <div class="space-y-6">
+                <!-- Weekly Activity Mini Chart -->
+                <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm">
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-sm text-main">Активность за 7 дней</h3>
+                    <span class="text-[11px] text-muted font-mono">задачи & время</span>
+                  </div>
+                  <div id="dash-weekly-chart" class="h-44 flex items-center justify-center"></div>
+                </div>
+
+                <!-- Productivity Tips / Rituals Card -->
+                <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm space-y-3">
+                  <div class="flex items-center gap-2 text-indigo-400">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h4 class="text-xs font-bold uppercase tracking-wider">Принцип фокуса дня</h4>
+                  </div>
+                  <p class="text-xs text-muted leading-relaxed">
+                    «Концентрация — это не просто сказать "да" важной задаче. Это сказать "нет" сотне других хороших идей.»
+                  </p>
+                  <div class="pt-2 border-t border-subtle flex items-center justify-between text-[11px] text-muted">
+                    <span>Стив Джобс</span>
+                    <button data-nav-target="timer" class="text-indigo-500 hover:underline font-medium">К таймеру →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== VIEW 2: TASKS ==================== -->
+          <section id="view-tasks" class="space-y-5 hidden" aria-labelledby="view-tasks-title">
+            <!-- Tasks Header & Search Toolbar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 id="view-tasks-title" class="text-xl font-bold text-main tracking-tight">Управление задачами</h2>
+                <p class="text-xs text-muted mt-0.5">Создавайте, сортируйте и отслеживайте выполнение целей</p>
+              </div>
+
+              <!-- Search input -->
+              <div class="relative w-full sm:w-72">
+                <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input id="tasks-search-input" type="text" placeholder="Поиск по названию или описанию..." class="w-full pl-9 pr-3 py-2 text-xs rounded-lg bg-surface border border-subtle focus:border-indigo-500 focus:outline-none transition-colors" />
+              </div>
+            </div>
+
+            <!-- Filter Tabs Bar (Status) -->
+            <div class="flex items-center gap-1.5 p-1 bg-surface border border-subtle rounded-xl overflow-x-auto">
+              <button class="filter-tab filter-tab-active" data-task-filter="all">Все</button>
+              <button class="filter-tab" data-task-filter="today">Сегодня</button>
+              <button class="filter-tab" data-task-filter="active">Активные</button>
+              <button class="filter-tab" data-task-filter="upcoming">Предстоящие</button>
+              <button class="filter-tab" data-task-filter="overdue">Просроченные</button>
+              <button class="filter-tab" data-task-filter="completed">Выполненные</button>
+            </div>
+
+            <!-- Secondary Filters Row (Category, Priority, Sort) -->
+            <div class="flex items-center gap-3 flex-wrap text-xs">
+              <!-- Category Filter -->
+              <div class="flex items-center gap-1.5">
+                <span class="text-muted">Категория:</span>
+                <select id="tasks-category-select" class="px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none">
+                  <option value="all">Все категории</option>
+                  <option value="Работа">Работа</option>
+                  <option value="Обучение">Обучение</option>
+                  <option value="Личное">Личное</option>
+                  <option value="Здоровье">Здоровье</option>
+                  <option value="Проекты">Проекты</option>
+                </select>
+              </div>
+
+              <!-- Priority Filter -->
+              <div class="flex items-center gap-1.5">
+                <span class="text-muted">Приоритет:</span>
+                <select id="tasks-priority-select" class="px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none">
+                  <option value="all">Все приоритеты</option>
+                  <option value="urgent">Срочный</option>
+                  <option value="high">Высокий</option>
+                  <option value="medium">Средний</option>
+                  <option value="low">Низкий</option>
+                </select>
+              </div>
+
+              <!-- Sorting -->
+              <div class="flex items-center gap-1.5 ml-auto">
+                <span class="text-muted">Сортировка:</span>
+                <select id="tasks-sort-select" class="px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none">
+                  <option value="order">По порядку (ручной перенос)</option>
+                  <option value="date">По дате выполнения</option>
+                  <option value="priority">По приоритету</option>
+                  <option value="title">По названию (А-Я)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Tasks Container -->
+            <div id="tasks-container" class="space-y-2"></div>
+
+            <!-- Empty State -->
+            <div id="tasks-empty-state" class="p-12 text-center bg-surface border border-subtle rounded-xl hidden">
+              <div class="w-12 h-12 mx-auto rounded-full bg-surface-elevated text-muted flex items-center justify-center mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+              </div>
+              <h3 class="text-base font-semibold text-main">Нет задач по выбранным критериям</h3>
+              <p class="text-xs text-muted mt-1 max-w-sm mx-auto">Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
+            </div>
+          </section>
+
+          <!-- ==================== VIEW 3: TIMER ==================== -->
+          <section id="view-timer" class="space-y-6 hidden" aria-labelledby="view-timer-title">
+            <h2 id="view-timer-title" class="sr-only">Таймер концентрации Pomodoro</h2>
+
+            <div class="max-w-xl mx-auto space-y-6 text-center">
+              <!-- Mode Tabs -->
+              <div class="inline-flex p-1 bg-surface border border-subtle rounded-2xl gap-1">
+                <button class="timer-tab timer-tab-active" data-timer-mode="work">Фокус</button>
+                <button class="timer-tab" data-timer-mode="shortBreak">Короткий перерыв</button>
+                <button class="timer-tab" data-timer-mode="longBreak">Длинный перерыв</button>
+              </div>
+
+              <!-- Circular Progress Display -->
+              <div class="relative w-72 h-72 mx-auto flex items-center justify-center my-4">
+                <svg class="w-72 h-72 -rotate-90" viewBox="0 0 280 280">
+                  <circle cx="140" cy="140" r="120" fill="none" class="timer-circle-track" stroke-width="10" />
+                  <circle id="timer-progress-ring-circle" cx="140" cy="140" r="120" fill="none" stroke="var(--primary)" stroke-width="10" stroke-linecap="round" stroke-dasharray="753.98" stroke-dashoffset="0" class="timer-circle-progress" />
+                </svg>
+
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <span id="timer-mode-badge" class="text-xs uppercase font-bold tracking-widest text-indigo-400 mb-1">Фокус-сессия</span>
+                  <span id="timer-time-display" class="text-5xl font-extrabold font-mono text-main tracking-tight">25:00</span>
+                  <span id="timer-round-badge" class="text-xs text-muted mt-2 font-mono">Раунд 1 из 4</span>
+                </div>
+              </div>
+
+              <!-- Main Play/Pause/Reset Action Buttons -->
+              <div class="flex items-center justify-center gap-4">
+                <button id="timer-reset-btn" class="p-3 rounded-xl bg-surface border border-subtle text-muted hover:text-main hover:bg-surface-hover transition-colors" title="Сбросить таймер">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
+
+                <!-- Big Primary Start/Pause Button -->
+                <button id="timer-play-pause-btn" class="w-20 h-20 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-lg transition-transform active:scale-95" aria-label="Старт">
+                  <svg class="w-8 h-8 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path></svg>
+                </button>
+
+                <button id="timer-skip-btn" class="p-3 rounded-xl bg-surface border border-subtle text-muted hover:text-main hover:bg-surface-hover transition-colors" title="Пропустить раунд">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </button>
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="flex items-center justify-center gap-2 pt-2">
+                <span class="text-xs text-muted">Длительность:</span>
+                <button class="preset-btn" data-timer-preset="15">15м</button>
+                <button class="preset-btn preset-btn-active" data-timer-preset="25">25м</button>
+                <button class="preset-btn" data-timer-preset="45">45м</button>
+                <button class="preset-btn" data-timer-preset="60">60м</button>
+              </div>
+
+              <!-- Link with Task Panel -->
+              <div class="bg-surface border border-subtle rounded-xl p-4 text-left space-y-2 mt-6">
+                <div class="flex items-center justify-between">
+                  <label for="timer-task-select" class="text-xs font-semibold text-main">Связать сессию с задачей:</label>
+                  <button id="timer-unlink-task-btn" class="text-xs text-muted hover:text-rose-500">Отвязать</button>
+                </div>
+                <select id="timer-task-select" class="w-full px-3 py-2 rounded-lg bg-surface-elevated border border-subtle text-xs text-main focus:border-indigo-500 focus:outline-none">
+                  <option value="">-- Без привязки к задаче --</option>
+                </select>
+
+                <div id="timer-linked-task-banner" class="hidden p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-400 flex items-center justify-between">
+                  <span class="truncate">Фокус: <strong id="timer-linked-task-title" class="text-main font-semibold"></strong></span>
+                  <span class="text-[10px] font-mono shrink-0 ml-2">Время запишется в карточку</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== VIEW 4: CALENDAR ==================== -->
+          <section id="view-calendar" class="space-y-6 hidden" aria-labelledby="view-calendar-title">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 id="view-calendar-title" class="text-xl font-bold text-main tracking-tight">Календарь задач</h2>
+                <p class="text-xs text-muted mt-0.5">Планируйте расписание и отслеживайте загрузку по дням</p>
+              </div>
+
+              <!-- Calendar Month Controls -->
+              <div class="flex items-center gap-2">
+                <button id="cal-today-btn" class="btn-secondary text-xs py-1.5 px-3">Сегодня</button>
+                <div class="flex items-center bg-surface border border-subtle rounded-lg">
+                  <button id="cal-prev-month-btn" class="p-1.5 text-muted hover:text-main" aria-label="Предыдущий месяц">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <span id="cal-month-title" class="px-3 text-xs font-bold text-main min-w-[120px] text-center">Ноябрь 2026</span>
+                  <button id="cal-next-month-btn" class="p-1.5 text-muted hover:text-main" aria-label="Следующий месяц">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calendar Layout (Grid + Selected Day Inspector) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+              <!-- Left 2 Cols: Month Grid -->
+              <div class="lg:col-span-2 bg-surface border border-subtle rounded-xl p-4 shadow-sm space-y-2">
+                <!-- Weekday Headers -->
+                <div class="grid grid-cols-7 gap-1 text-center font-semibold text-xs text-muted pb-2 border-b border-subtle">
+                  <span>Пн</span>
+                  <span>Вт</span>
+                  <span>Ср</span>
+                  <span>Чт</span>
+                  <span>Пт</span>
+                  <span class="text-indigo-400">Сб</span>
+                  <span class="text-indigo-400">Вс</span>
+                </div>
+
+                <!-- Days Cells Grid -->
+                <div id="cal-days-grid" class="cal-grid"></div>
+              </div>
+
+              <!-- Right 1 Col: Selected Day Details -->
+              <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-subtle">
+                  <div>
+                    <h3 id="cal-selected-date-title" class="font-bold text-sm text-main">Сегодня</h3>
+                    <p class="text-[11px] text-muted">Запланированные задачи</p>
+                  </div>
+                  <button id="cal-quick-add-btn" class="p-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors" title="Добавить задачу на эту дату">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                </div>
+
+                <div id="cal-selected-tasks-list" class="space-y-2 max-h-[460px] overflow-y-auto"></div>
+                <div id="cal-selected-empty" class="p-6 text-center text-xs text-muted hidden">
+                  Нет задач на этот день. Нажмите "+", чтобы добавить.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== VIEW 5: ANALYTICS ==================== -->
+          <section id="view-analytics" class="space-y-6 hidden" aria-labelledby="view-analytics-title">
+            <div>
+              <h2 id="view-analytics-title" class="text-xl font-bold text-main tracking-tight">Аналитика продуктивности</h2>
+              <p class="text-xs text-muted mt-0.5">Реальные показатели вашей концентрации, прогресса и стабильности</p>
+            </div>
+
+            <!-- Stats KPI Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Всего задач</p>
+                  <p id="stat-total-tasks" class="text-lg font-bold font-mono text-main mt-0.5">0</p>
+                </div>
+              </div>
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Выполнено</p>
+                  <p id="stat-completed-tasks" class="text-lg font-bold font-mono text-emerald-500 mt-0.5">0</p>
+                </div>
+              </div>
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Эффективность</p>
+                  <p id="stat-completion-rate" class="text-lg font-bold font-mono text-main mt-0.5">0%</p>
+                </div>
+              </div>
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Время фокуса</p>
+                  <p id="stat-focus-hours" class="text-lg font-bold font-mono text-indigo-500 mt-0.5">0ч 0м</p>
+                </div>
+              </div>
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Серия сейчас</p>
+                  <p id="stat-current-streak" class="text-lg font-bold font-mono text-amber-500 mt-0.5">0 дн.</p>
+                </div>
+              </div>
+              <div class="metric-card p-3">
+                <div>
+                  <p class="text-[11px] text-muted">Рекорд серии</p>
+                  <p id="stat-best-streak" class="text-lg font-bold font-mono text-main mt-0.5">0 дн.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2-column Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Weekly Chart -->
+              <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-bold text-sm text-main">Динамика за последние 7 дней</h3>
+                  <span class="text-xs text-muted font-mono">задачи & фокус</span>
+                </div>
+                <div id="analytics-weekly-chart" class="h-52 flex items-center justify-center"></div>
+              </div>
+
+              <!-- Categories Donut Chart -->
+              <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-bold text-sm text-main">Распределение по категориям</h3>
+                  <span class="text-xs text-muted font-mono">структура задач</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 items-center gap-4">
+                  <div id="analytics-donut-chart" class="flex items-center justify-center"></div>
+                  <div id="analytics-category-legend" class="space-y-1"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Focus Sessions History Table -->
+            <div class="bg-surface border border-subtle rounded-xl p-5 shadow-sm space-y-3">
+              <h3 class="font-bold text-sm text-main">История недавних сессий фокуса</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="border-b border-subtle text-[11px] font-semibold text-muted uppercase tracking-wider">
+                      <th class="py-2 px-3">Задача / Сессия</th>
+                      <th class="py-2 px-3">Дата</th>
+                      <th class="py-2 px-3 text-right">Длительность</th>
+                    </tr>
+                  </thead>
+                  <tbody id="analytics-sessions-tbody"></tbody>
+                </table>
+                <p id="analytics-sessions-empty" class="text-xs text-muted py-6 text-center hidden">
+                  Сессии фокуса еще не зафиксированы. Запустите таймер Pomodoro!
+                </p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-nav-bar" aria-label="Мобильная навигация">
+      <button class="mobile-nav-btn nav-btn-active" data-nav-target="dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        <span>Обзор</span>
+      </button>
+
+      <button class="mobile-nav-btn" data-nav-target="tasks">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+        <span>Задачи</span>
+      </button>
+
+      <button class="mobile-nav-btn" data-nav-target="timer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span>Таймер</span>
+      </button>
+
+      <button class="mobile-nav-btn" data-nav-target="calendar">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <span>Календарь</span>
+      </button>
+
+      <button class="mobile-nav-btn" data-nav-target="analytics">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        <span>Аналитика</span>
+      </button>
+    </nav>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. Task Modal (Create & Edit) -->
+    <div id="task-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+      <div class="modal-dialog p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-subtle">
+          <h3 id="task-modal-title" class="font-bold text-base text-main">Новая задача</h3>
+          <button data-close-modal="task-modal" class="p-1 rounded-lg text-muted hover:text-main" aria-label="Закрыть модальное окно">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <form id="task-form" class="space-y-4">
+          <!-- Title -->
+          <div>
+            <label for="task-input-title" class="block text-xs font-semibold text-main mb-1">Название задачи <span class="text-rose-500">*</span></label>
+            <input id="task-input-title" type="text" required placeholder="Например: Закончить концепцию FOCUS FLOW" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="task-input-desc" class="block text-xs font-semibold text-main mb-1">Описание / Заметки</label>
+            <textarea id="task-input-desc" rows="2" placeholder="Ключевые детали, ссылки или критерии готовности..." class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none"></textarea>
+          </div>
+
+          <!-- Category & Priority Row -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="task-input-category" class="block text-xs font-semibold text-main mb-1">Категория</label>
+              <select id="task-input-category" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none">
+                <option value="Работа">Работа</option>
+                <option value="Обучение">Обучение</option>
+                <option value="Личное">Личное</option>
+                <option value="Здоровье">Здоровье</option>
+                <option value="Проекты">Проекты</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="task-input-priority" class="block text-xs font-semibold text-main mb-1">Приоритет</label>
+              <select id="task-input-priority" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none">
+                <option value="urgent">Срочный (Urgent)</option>
+                <option value="high">Высокий (High)</option>
+                <option value="medium" selected>Средний (Medium)</option>
+                <option value="low">Низкий (Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date & Time Row -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="col-span-2">
+              <label for="task-input-date" class="block text-xs font-semibold text-main mb-1">Дата срока</label>
+              <input id="task-input-date" type="date" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+            </div>
+
+            <div>
+              <label for="task-input-time" class="block text-xs font-semibold text-main mb-1">Время</label>
+              <input id="task-input-time" type="time" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+            </div>
+          </div>
+
+          <!-- Duration estimate -->
+          <div>
+            <label for="task-input-duration" class="block text-xs font-semibold text-main mb-1">Примерная длительность (минуты)</label>
+            <input id="task-input-duration" type="number" min="5" max="300" step="5" value="25" class="w-full px-3 py-2 text-xs rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+          </div>
+
+          <!-- Dynamic Subtasks Checklist -->
+          <div class="pt-2 border-t border-subtle">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-main">Подзадачи / Чек-лист</span>
+              <button id="task-form-add-subtask-btn" type="button" class="text-xs text-indigo-500 hover:text-indigo-400 font-medium flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                <span>Добавить пункт</span>
+              </button>
+            </div>
+            <div id="task-form-subtasks-container"></div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex items-center justify-end gap-2 pt-3 border-t border-subtle">
+            <button type="button" data-close-modal="task-modal" class="btn-secondary">Отмена</button>
+            <button id="task-modal-submit-btn" type="submit" class="btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+      <div class="modal-dialog p-6 space-y-4 max-w-sm">
+        <div class="w-10 h-10 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+        </div>
+        <div class="text-center">
+          <h3 id="delete-modal-title" class="font-bold text-base text-main">Удалить задачу?</h3>
+          <p class="text-xs text-muted mt-1">Задача <span id="delete-modal-task-title" class="font-semibold text-main"></span> будет безвозвратно удалена.</p>
+        </div>
+        <div class="flex items-center justify-center gap-2 pt-2">
+          <button type="button" data-close-modal="delete-modal" class="btn-secondary flex-1">Отмена</button>
+          <button id="delete-modal-confirm-btn" type="button" class="btn-primary bg-rose-600 hover:bg-rose-700 flex-1">Удалить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+      <div class="modal-dialog p-6 space-y-5 max-w-md">
+        <div class="flex items-center justify-between pb-3 border-b border-subtle">
+          <h3 id="settings-modal-title" class="font-bold text-base text-main">Настройки FOCUS FLOW</h3>
+          <button data-close-modal="settings-modal" class="p-1 rounded-lg text-muted hover:text-main" aria-label="Закрыть настройки">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <form id="settings-form" class="space-y-4 text-xs">
+          <!-- Theme Preference -->
+          <div>
+            <label class="block font-semibold text-main mb-2">Оформление темы</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-subtle bg-surface cursor-pointer">
+                <input type="radio" name="theme-choice" value="dark" />
+                <span class="font-medium text-main">Тёмная (Obsidian)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-subtle bg-surface cursor-pointer">
+                <input type="radio" name="theme-choice" value="light" />
+                <span class="font-medium text-main">Светлая (Paper)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Pomodoro Durations -->
+          <div class="pt-3 border-t border-subtle space-y-3">
+            <label class="block font-semibold text-main">Длительность Pomodoro (минуты)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <span class="text-muted block mb-1">Фокус</span>
+                <input id="settings-input-work" type="number" min="5" max="180" class="w-full px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+              </div>
+              <div>
+                <span class="text-muted block mb-1">Короткий</span>
+                <input id="settings-input-short-break" type="number" min="1" max="60" class="w-full px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+              </div>
+              <div>
+                <span class="text-muted block mb-1">Длинный</span>
+                <input id="settings-input-long-break" type="number" min="5" max="90" class="w-full px-2.5 py-1.5 rounded-lg bg-surface border border-subtle text-main focus:border-indigo-500 focus:outline-none" />
+              </div>
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer pt-1">
+              <input id="settings-input-auto-breaks" type="checkbox" />
+              <span class="text-main">Автоматически запускать перерывы</span>
+            </label>
+          </div>
+
+          <!-- Sound & Notifications -->
+          <div class="pt-3 border-t border-subtle space-y-3">
+            <label class="block font-semibold text-main">Звуки и уведомления</label>
+            <div class="flex items-center justify-between">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input id="settings-input-sound" type="checkbox" />
+                <span class="text-main">Звуковые сигналы завершения</span>
+              </label>
+              <button id="settings-test-sound-btn" type="button" class="text-indigo-500 hover:underline">Проверить звук</button>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-muted mb-1">
+                <span>Громкость:</span>
+              </div>
+              <input id="settings-input-volume" type="range" min="0" max="100" class="w-full" />
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input id="settings-input-notifications" type="checkbox" />
+              <span class="text-main">Системные уведомления браузера</span>
+            </label>
+          </div>
+
+          <!-- Data Backup & Reset -->
+          <div class="pt-3 border-t border-subtle space-y-2">
+            <label class="block font-semibold text-main">Резервное копирование и данные</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button id="settings-export-btn" type="button" class="btn-secondary w-full text-xs">
+                Экспорт JSON
+              </button>
+              <button id="settings-import-btn" type="button" class="btn-secondary w-full text-xs">
+                Импорт JSON
+              </button>
+              <input id="import-file-input" type="file" accept=".json" class="hidden" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <button id="settings-load-demo-btn" type="button" class="btn-secondary w-full text-xs">
+                Загрузить демо
+              </button>
+              <button id="settings-reset-data-btn" type="button" class="btn-secondary w-full text-xs text-rose-500 hover:border-rose-500">
+                Сбросить всё
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-subtle">
+            <button type="button" data-close-modal="settings-modal" class="btn-secondary">Отмена</button>
+            <button type="submit" class="btn-primary">Применить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 4. Reset Confirmation Modal -->
+    <div id="reset-confirm-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="reset-confirm-title">
+      <div class="modal-dialog p-6 space-y-4 max-w-sm">
+        <div class="w-10 h-10 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <div class="text-center">
+          <h3 id="reset-confirm-title" class="font-bold text-base text-main">Сбросить все данные?</h3>
+          <p class="text-xs text-muted mt-1">Все задачи, категории, журнал сессий и настройки будут удалены без возможности восстановления.</p>
+        </div>
+        <div class="flex items-center justify-center gap-2 pt-2">
+          <button type="button" data-close-modal="reset-confirm-modal" class="btn-secondary flex-1">Отмена</button>
+          <button id="reset-confirm-action-btn" type="button" class="btn-primary bg-rose-600 hover:bg-rose-700 flex-1">Да, очистить</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Keyboard Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="shortcuts-modal-title">
+      <div class="modal-dialog p-6 space-y-4 max-w-sm">
+        <div class="flex items-center justify-between pb-3 border-b border-subtle">
+          <h3 id="shortcuts-modal-title" class="font-bold text-base text-main">Горячие клавиши</h3>
+          <button data-close-modal="shortcuts-modal" class="p-1 rounded-lg text-muted hover:text-main" aria-label="Закрыть">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center justify-between py-1.5 border-b border-subtle">
+            <span class="text-muted">Новая задача</span>
+            <kbd class="px-2 py-0.5 rounded bg-surface-elevated border border-subtle font-mono font-semibold text-main">N</kbd>
+          </div>
+          <div class="flex items-center justify-between py-1.5 border-b border-subtle">
+            <span class="text-muted">Старт / Пауза таймера</span>
+            <kbd class="px-2 py-0.5 rounded bg-surface-elevated border border-subtle font-mono font-semibold text-main">Space</kbd>
+          </div>
+          <div class="flex items-center justify-between py-1.5 border-b border-subtle">
+            <span class="text-muted">Переключение экранов</span>
+            <div class="flex items-center gap-1">
+              <kbd class="px-1.5 py-0.5 rounded bg-surface-elevated border border-subtle font-mono text-main">1</kbd>
+              <kbd class="px-1.5 py-0.5 rounded bg-surface-elevated border border-subtle font-mono text-main">2</kbd>
+              <kbd class="px-1.5 py-0.5 rounded bg-surface-elevated border border-subtle font-mono text-main">3</kbd>
+              <kbd class="px-1.5 py-0.5 rounded bg-surface-elevated border border-subtle font-mono text-main">4</kbd>
+              <kbd class="px-1.5 py-0.5 rounded bg-surface-elevated border border-subtle font-mono text-main">5</kbd>
+            </div>
+          </div>
+          <div class="flex items-center justify-between py-1.5 border-b border-subtle">
+            <span class="text-muted">Закрыть окно</span>
+            <kbd class="px-2 py-0.5 rounded bg-surface-elevated border border-subtle font-mono font-semibold text-main">Esc</kbd>
+          </div>
+          <div class="flex items-center justify-between py-1.5">
+            <span class="text-muted">Справка по клавишам</span>
+            <kbd class="px-2 py-0.5 rounded bg-surface-elevated border border-subtle font-mono font-semibold text-main">?</kbd>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Application JavaScript Entry Point -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

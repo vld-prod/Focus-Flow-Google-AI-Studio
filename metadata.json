@@ -1,0 +1,6 @@
+{
+  "name": "Focus Flow — Productivity & Focus Planner",
+  "description": "High-performance personal task planner, Pomodoro focus timer, interactive calendar, and productivity analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
